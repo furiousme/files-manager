@@ -1,11 +1,7 @@
 import { showGoodbye, showGreeting, showWorkDir, changeWorkDir, getHomeDir, promptForNextCommand, validateInput,
-    showErrorMessage
+    showErrorMessage,
+    getCommandHandler
  } from "./src/helpers/index.js";
-
-const handleCommand = (command, args) => {
-    console.log("Command: ", command);
-    console.log("Args: ", args);
-}
 
 const startFileManager = () => {
     showGreeting();
@@ -31,6 +27,7 @@ const startFileManager = () => {
         }
 
         try {
+            const handleCommand = getCommandHandler(command, args);
             handleCommand(command, args);
         } catch (e) {
             showErrorMessage("Operation failed");

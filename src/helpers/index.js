@@ -1,5 +1,6 @@
 import process from "node:process";
 import os from "node:os";
+import { commandsCoreMapping } from "../commands-core-mapping.js";
 
 export const getUsername = () => {
     return process.argv.slice(2).find(el => el.startsWith("--username"))?.split("=")[1] ?? "Guest";
@@ -39,6 +40,28 @@ export const showErrorMessage = (message) => {
     console.log(`${os.EOL}*** ${message} *** ${os.EOL}`);
 }
 
-export const validateInput = () => {
-    return false;
+export const getCommandOption = (args) => {
+    if (args[0]?.startsWith("--")) return args[0].slice(2);
+}
+
+export const validateInput = (command, args) => {
+    const isValidCommand = command in commandsCoreMapping;
+
+    if (!isValidCommand) return false;
+
+    const option = getCommandOption(args);
+
+    if (option) {
+        return commandsCoreMapping[command].options && option in commandsCoreMapping[command].options;
+    } 
+
+    const requiredArgsNum = commandsCoreMapping[command].args?.length;
+
+    return  requiredArgsNum ? requiredArgsNum === args.length : true;
+}
+
+export const getCommandHandler = (command, args) => {
+    const option = getCommandOption(args);
+
+    return option ? commandsCoreMapping[command][option].handler : commandsCoreMapping[command].handler;
 }
