@@ -1,5 +1,6 @@
 import process from "node:process";
 import os from "node:os";
+import fs from "node:fs/promises";
 import { commandsCoreMapping } from "../commands-core-mapping.js";
 
 export const getUsername = () => {
@@ -19,15 +20,11 @@ export const getWorkDir = () => {
 }
 
 export const changeWorkDir = (pathToDir) => {
-    try {
-        process.chdir(pathToDir);
-    } catch (e) {
-        console.error("error while changing directory");
-    }
+    process.chdir(pathToDir);
 }
 
 export const showWorkDir = () => {
-    console.log(`You are currently in ${getWorkDir()} ${os.EOL}`)
+    console.log(` ${os.EOL}You are currently in ${getWorkDir()} ${os.EOL}`)
 }
 
 export const getHomeDir = () => os.homedir();
@@ -64,4 +61,16 @@ export const getCommandHandler = (command, args) => {
     const option = getCommandOption(args);
 
     return option ? commandsCoreMapping[command][option].handler : commandsCoreMapping[command].handler;
+}
+
+export const getDirEntries = async () => {
+    const currentWorkDir = getWorkDir();
+    return await fs.readdir(currentWorkDir, { withFileTypes: true });
+}
+
+export const prepareDirEntriesToPrint = (entries) => {
+    return entries.map(el => ({
+        name: el.name,
+        type: el.isFile() ? "file" : "directory"
+    }))
 }

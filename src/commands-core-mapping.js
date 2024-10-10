@@ -1,17 +1,19 @@
+import { goUpper, goToDir, printDirEntries } from "./nwd/index.js";
+
 const noop = () => {
     console.log('noop handler was found')
 };
 
 export const commandsCoreMapping = {
     "up": {
-        handler: noop,
+        handler: goUpper,
     },
     "cd": {
-        handler: noop,
+        handler: goToDir,
         args: ["path_to_directory"]
     },
     "ls": {
-        handler: noop,
+        handler: printDirEntries,
     },
     "cat": {
         handler: noop,

@@ -16,7 +16,7 @@ const startFileManager = () => {
 
     const commandsStream = process.stdin;
 
-    commandsStream.on('data', (data) => {
+    commandsStream.on('data', async (data) => {
         const [command, ...args] = data.toString().trim().split(" ");
         const isInputValid = validateInput(command, args);
 
@@ -28,9 +28,12 @@ const startFileManager = () => {
 
         try {
             const handleCommand = getCommandHandler(command, args);
-            handleCommand(command, args);
+            await handleCommand(args);
+            showWorkDir();
+            promptForNextCommand();
         } catch (e) {
             showErrorMessage("Operation failed");
+            // console.log(e);
             promptForNextCommand();
         }
     })
