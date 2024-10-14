@@ -33,7 +33,7 @@ const startFileManager = () => {
             promptForNextCommand();
         } catch (e) {
             showErrorMessage("Operation failed");
-            // console.log(e);
+            console.log(e);
             promptForNextCommand();
         }
     })

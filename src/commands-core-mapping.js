@@ -1,4 +1,5 @@
 import { goUpper, goToDir, printDirEntries } from "./nwd/index.js";
+import { printFile, createNewFile, renameFile, copy, deleteFile, moveFile } from "./fs/index.js";
 
 const noop = () => {
     console.log('noop handler was found')
@@ -16,27 +17,27 @@ export const commandsCoreMapping = {
         handler: printDirEntries,
     },
     "cat": {
-        handler: noop,
+        handler: printFile,
         args: ["path_to_file"]
     },
     "add": {
-        handler: noop,
+        handler: createNewFile,
         args: ["new_file_name"]
     },
     "rn": {
-        handler: noop,
+        handler: renameFile,
         args: ["path_to_file", "new_filename"]
     },
     "cp": {
-        handler: noop,
+        handler: copy,
         args: ["path_to_file", "path_to_new_directory"]
     },
     "mv": {
-        handler: noop,
+        handler: moveFile,
         args: ["path_to_file", "path_to_new_directory"]
     },
     "rm": {
-        handler: noop,
+        handler: deleteFile,
         args: ["path_to_file"]  
     },
     "os": {

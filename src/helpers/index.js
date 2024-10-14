@@ -74,3 +74,12 @@ export const prepareDirEntriesToPrint = (entries) => {
         type: el.isFile() ? "file" : "directory"
     }))
 }
+
+export const checkIfExists = async (path) => {
+	try {
+		await fs.access(path);   
+		return true;
+	} catch (e) {
+		return false
+	}
+}
