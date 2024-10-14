@@ -8,11 +8,11 @@ export const getUsername = () => {
 }
 
 export const showGreeting = () => {
-    console.log(`Welcome to the File Manager, ${getUsername()}! ${os.EOL}`);
+    console.log(colorText(`Welcome to the File Manager, ${getUsername()}! ${os.EOL}`));
 }
 
 export const showGoodbye = () => {
-    console.log(`${os.EOL}Thank you for using File Manager, ${getUsername()}, goodbye! ${os.EOL}`);
+    console.log(colorText(`${os.EOL}Thank you for using File Manager, ${getUsername()}, goodbye! ${os.EOL}`));
 }
 
 export const getWorkDir = () => {
@@ -24,13 +24,13 @@ export const changeWorkDir = (pathToDir) => {
 }
 
 export const showWorkDir = () => {
-    console.log(` ${os.EOL}You are currently in ${getWorkDir()} ${os.EOL}`)
+    console.log(colorText(`${os.EOL}You are currently in ${getWorkDir()} ${os.EOL}`, "green"))
 }
 
 export const getHomeDir = () => os.homedir();
 
 export const promptForNextCommand = () => {
-    console.log(`Please enter your command > ${os.EOL}`);
+    console.log(colorText(`Please enter your command > ${os.EOL}`, "blue"));
 }
 
 export const showErrorMessage = (message) => {
@@ -82,4 +82,14 @@ export const checkIfExists = async (path) => {
 	} catch (e) {
 		return false
 	}
+}
+
+const colors = {
+    yellow: "33",
+    blue: "34",
+    green: "32"
+};
+
+export const colorText = (text, color = "yellow") => {
+    return `\x1b[${colors[color]}m ${text} \x1b[0m`;
 }
