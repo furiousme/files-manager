@@ -69,10 +69,15 @@ export const getDirEntries = async () => {
 }
 
 export const prepareDirEntriesToPrint = (entries) => {
-    return entries.map(el => ({
-        name: el.name,
-        type: el.isFile() ? "file" : "directory"
-    }))
+    return entries.reduce((acc, el) => {
+        const elType = el.isFile() ? "file" : "directory";
+        const entry =  {
+            name: el.name,
+            type: elType
+        }
+
+        return elType === "directory" ? [entry, ...acc] : [...acc, entry];
+    }, [])
 }
 
 export const checkIfExists = async (path) => {
