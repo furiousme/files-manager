@@ -1,10 +1,8 @@
 import { goUpper, goToDir, printDirEntries } from "./nwd/index.js";
 import { printFile, createNewFile, renameFile, copy, deleteFile, moveFile } from "./fs/index.js";
 import { showEOL, showCpus, showHomeDir, showUsername, showArchitecture } from "./os/index.js";
-
-const noop = () => {
-    console.log('noop handler was found')
-};
+import { calculateHash } from "./hash/index.js";
+import { compressFile, decompressFile } from "./zip/index.js"
 
 export const commandsCoreMapping = {
     "up": {
@@ -61,15 +59,15 @@ export const commandsCoreMapping = {
         }
     },
     "hash": {
-        handler: noop,
+        handler: calculateHash,
         args: ["path_to_file"]
     },
     "compress": {
-        handler: noop,
-        args: ["path_to_file path_to_destination"]
+        handler: compressFile,
+        args: ["path_to_file",  "path_to_destination"]
     },
     "decompress": {
-        handler: noop,
-        args: ["path_to_file path_to_destination"]
+        handler: decompressFile,
+        args: ["path_to_file", "path_to_destination"]
     }
 }
