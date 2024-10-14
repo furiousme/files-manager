@@ -60,7 +60,7 @@ export const validateInput = (command, args) => {
 export const getCommandHandler = (command, args) => {
     const option = getCommandOption(args);
 
-    return option ? commandsCoreMapping[command][option].handler : commandsCoreMapping[command].handler;
+    return option ? commandsCoreMapping[command].options[option].handler : commandsCoreMapping[command].handler;
 }
 
 export const getDirEntries = async () => {

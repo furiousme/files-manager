@@ -1,5 +1,6 @@
 import { goUpper, goToDir, printDirEntries } from "./nwd/index.js";
 import { printFile, createNewFile, renameFile, copy, deleteFile, moveFile } from "./fs/index.js";
+import { showEOL, showCpus, showHomeDir, showUsername, showArchitecture } from "./os/index.js";
 
 const noop = () => {
     console.log('noop handler was found')
@@ -43,19 +44,19 @@ export const commandsCoreMapping = {
     "os": {
         options: {
             "EOL": {
-                handler: noop,
+                handler: showEOL,
             },
             "cpus": {
-                handler: noop,
+                handler: showCpus,
             },
             "homedir": {
-                handler: noop,
+                handler: showHomeDir,
             },
             "username": {
-                handler: noop,
+                handler: showUsername,
             },
             "architecture": {
-                handler: noop,
+                handler: showArchitecture,
             }
         }
     },
